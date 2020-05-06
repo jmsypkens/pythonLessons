@@ -8,7 +8,7 @@ import random
 
 ### generates secret_number ###
 
-user_name = "John Smith"
+user_name = "User"
 secret_number = random.randint(0, 100)
 
 ### Gets user name ###
@@ -58,26 +58,31 @@ def guess_number():
 ### Computer guesses your number ###
 
 def computer_guess():
-    computer_num = random.randint(0, 99999999999999999999) # guesses random number
+    computer_num = random.randint(0, 99999999999999999999999999999999999999999999999999999999999999999999999999) # guesses random number
     print("")
     print("Did you know that your computer is much better at guessing than humans???")
     print("")
     print("Here is an example...")
     print("")
-    print(user_name + " please enter a number for the computer to guess between 0 and 99999999999999999999:")
-    user_num = int(input())
+    print(user_name + " please enter any number for the computer to guess:")
+    try:
+        user_num = int(input())
+    except ValueError:
+        print("")
+        print("Invalid entry! Please try again...")
+        computer_guess()
 
-    while user_num > 99999999999999999999 and user_num < 0:
+    while user_num > 99999999999999999999999999999999999999999999999999999999999999999999999999 and user_num < 0:
         print("Invalid entry. Please enter another number for the computer to guess:")
         user_num = int(input())
 
     counter = 0
-    high_num = 99999999999999999999
+    high_num = 99999999999999999999999999999999999999999999999999999999999999999999999999
     low_num = 1
     print("")
 
     while computer_num != user_num:
-        for guesses_taken in range(1, 99999999999999999999):
+        for guesses_taken in range(1, 99999999999999999999999999999999999999999999999999999999999999999999999999):
             counter += 1
             if computer_num > user_num:
                 print("Guess # " + str(counter) + " was: " + str(computer_num))
@@ -101,6 +106,7 @@ def menu():
     hash_tag = ["#" for i in range(1, 8)]
     for a in range(1, 6):
         print(hash_tag)
+    print("")
     print("###### The Guessing Game ######")
     print("")
     print("~ Please select an option: ~")
@@ -112,19 +118,22 @@ def menu():
         print(hash_tag)
     print("")
     print("Enter number from selection: ")
-    user_menu = int(input())
+    menu_input = input()
 
-    while user_menu != range(1, 3):
-        if user_menu == 1:
+    if menu_input == "1" or menu_input == "2" or menu_input == "3":
+        if menu_input == "1":
             guess_number()
-        elif user_menu == 2:
+        elif menu_input == "2":
             computer_guess()
-        elif user_menu == 3:
+        elif menu_input == "3":
             print("Thank you! Have a nice day.")
             quit()
-        else:
-            print("Invalid entry, please try again.")
-            user_menu = int(input())
+    else:
+        print("Invalid selection. Try Again!")
+        print("")
+        print("")
+        print("")
+        menu()
 
 ### Menu ###
 menu()
