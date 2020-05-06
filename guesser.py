@@ -5,17 +5,18 @@
 # Written by: Jerry Sypkens
 
 import random
+import os
 
 ### generates secret_number ###
 
 user_name = "User"
 secret_number = random.randint(0, 100)
+greatest_num = 10 ** 10000 # program works up to 1- with 10000 zeros after it.
 
 ### Gets user name ###
 
 def get_name():
-    print("What is your name?: ")
-    user_name = input()
+    user_name = input("What is your name?: ")
     print("")
     return user_name
 
@@ -25,8 +26,8 @@ def guess_number():
     print("")
     user_name = get_name()
     print("")
-    print(user_name + " please guess a number. I am thinking of a number between 0 and 100: ")
-    user_guess = int(input())
+    # print(user_name + " please guess a number. I am thinking of a number between 0 and 100: ")
+    user_guess = int(input(user_name + " please guess a number. I am thinking of a number between 0 and 100: "))
     print("")
 
     while user_guess != secret_number:
@@ -58,31 +59,31 @@ def guess_number():
 ### Computer guesses your number ###
 
 def computer_guess():
-    computer_num = random.randint(0, 99999999999999999999999999999999999999999999999999999999999999999999999999) # guesses random number
+    computer_num = random.randint(0, greatest_num) # guesses random number
     print("")
     print("Did you know that your computer is much better at guessing than humans???")
     print("")
     print("Here is an example...")
     print("")
-    print(user_name + " please enter any number for the computer to guess:")
+    # print(user_name + " please enter any number for the computer to guess:")
     try:
-        user_num = int(input())
+        user_num = int(input(user_name + " please enter any number for the computer to guess: "))
     except ValueError:
         print("")
         print("Invalid entry! Please try again...")
         computer_guess()
 
-    while user_num > 99999999999999999999999999999999999999999999999999999999999999999999999999 and user_num < 0:
-        print("Invalid entry. Please enter another number for the computer to guess:")
-        user_num = int(input())
+    while user_num > greatest_num or user_num < 0:
+        print("")
+        user_num = int(input("Invalid entry. Please enter another number for the computer to guess: "))
 
     counter = 0
-    high_num = 99999999999999999999999999999999999999999999999999999999999999999999999999
-    low_num = 1
+    high_num = greatest_num
+    low_num = 0
     print("")
 
     while computer_num != user_num:
-        for guesses_taken in range(1, 99999999999999999999999999999999999999999999999999999999999999999999999999):
+        for guesses_taken in range(1, greatest_num):
             counter += 1
             if computer_num > user_num:
                 print("Guess # " + str(counter) + " was: " + str(computer_num))
@@ -117,8 +118,8 @@ def menu():
     for a in range(1, 6):
         print(hash_tag)
     print("")
-    print("Enter number from selection: ")
-    menu_input = input()
+    # print("Enter number from selection: ")
+    menu_input = input("Enter number from selection: ")
 
     if menu_input == "1" or menu_input == "2" or menu_input == "3":
         if menu_input == "1":
@@ -126,7 +127,14 @@ def menu():
         elif menu_input == "2":
             computer_guess()
         elif menu_input == "3":
-            print("Thank you! Have a nice day.")
+            for i in range(1, 10000):
+                for i in range(1, 10):
+                    print("#")
+                for i in range(1, 20):
+                    print("Thank you! Have a nice day.")
+                for i in range(1, 10):
+                    print("#")
+            os.system("clear")
             quit()
     else:
         print("Invalid selection. Try Again!")
@@ -135,5 +143,7 @@ def menu():
         print("")
         menu()
 
+# os.system("cat guesser.py") # Shows code before running program
+print("")
 ### Menu ###
 menu()
